@@ -6,7 +6,7 @@
 #include <string>
 
 using namespace std;
-map createDict (char[]){
+map<const string, int> createDict (char[]){
 	std::string functionWords[277] = {"a", "about",
 "above",
 "across",
@@ -283,7 +283,14 @@ map createDict (char[]){
 "yours",
 "yourself",
 "yourselves"	}; 
+map<const string, int> output;
+output["at"] = 1;
+// proper initialization necessary
+return output;
+}
 
+int main(){
+	return 0;
 }
 
 
