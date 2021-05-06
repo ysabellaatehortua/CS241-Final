@@ -4,10 +4,11 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <array>
 
 using namespace std;
-map<const string, int> createDict (char[]){
-	std::string functionWords[277] = {"a", "about",
+map<const string, int> createDict (std::string text){
+	std::array<std::string,277> functionWords = {"a", "about",
 "above",
 "across",
 "after",
@@ -283,13 +284,24 @@ map<const string, int> createDict (char[]){
 "yours",
 "yourself",
 "yourselves"	}; 
+// function words taken from https://semanticsimilarity.wordpress.com/function-word-lists/
+// I trust this site, guy says he has a PhD	
 map<const string, int> output;
-output["at"] = 1;
+for (int i = 0; i < functionWords.size(); i++){
+	output[functionWords[i]] = 0;
+// This looks like it works
+
+}
+// All that needs to be done is to loop through the string and add one when a function words appears
+
+
 // proper initialization necessary
 return output;
 }
 
 int main(){
+	map<const string, int> thisMap = createDict("is");
+	printf("%i", thisMap["yes"]);
 	return 0;
 }
 
