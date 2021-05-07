@@ -2,20 +2,15 @@
 #include <fstream>
 #include <string>
 #include <map>
-using namespace std;
-int main(){
-   fstream newfile;
-   newfile.open("tpoint.txt",ios::out);  // open a file to perform write operation using file object
-   if(newfile.is_open()) //checking whether the file is open {
-      newfile<<"Tutorials point \n"; //inserting text
-      newfile.close(); //close the file object
-   }
-   newfile.open("tpoint.txt",ios::in); //open a file to perform read operation using file object
-   if (newfile.is_open()){ //checking whether the file is open
-      string tp;
-      while(getline(newfile, tp)){ //read data from file object and put it into string.
-         cout << tp << "\n"; //print the data of the string
-      }
-      newfile.close(); //close the file object.
-   }
-}
+int main(int argc, char* argv[]){
+	const char* file=argv[1];
+   const char* file2 = argv[2];
+	int x;
+	FILE* fp = fopen(file,"r");
+   FILE* fp2 = fopen(file2, "r");
+	while((x=fgetc(fp))!=EOF){
+      // send each line to comparision function that returns dictionary of keywords
+	}
+
+	fclose(fp);
+   fclose(file2);
