@@ -1,6 +1,6 @@
-//Function that creates a map of function words from a string
+//Makedict: Function that creates a map of function words from a string
 //Uses C++ default map class
-//
+//Addword: Function that increments the map by one
 #include <iostream>
 #include <map>
 #include <string>
@@ -298,9 +298,16 @@ for (int i = 0; i < functionWords.size(); i++){
 // proper initialization necessary
 return output;
 }
+void addWord(map<const string, int>& mapInput, string word){
+	mapInput[word]++;
+
+}
+
 
 int main(){
 	map<const string, int> thisMap = createDict("is");
+	printf("%i", thisMap["yes"]);
+	addWord(thisMap, "yes");
 	printf("%i", thisMap["yes"]);
 	return 0;
 }
