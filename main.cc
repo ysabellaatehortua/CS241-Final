@@ -15,8 +15,14 @@ int main(){
 	getchar();
 	//buffer size for text files
 	char inputbuffer[100] = {'\0'};
+
+	//map<const string, int> profile[100];
+	map<const string, int>* profile = (map<const string, int>*)malloc(sizeof(map<const string, int>));
+	if (profile == NULL) {
+		printf("Error with memory allocation -  exiting program.");
+		exit(1);
+	}
 	
-	map<const string, int> profile[100];
 	int size = 0;
 
 	//while loop for creating profiles of multiple text files
@@ -26,32 +32,58 @@ int main(){
 		printf("Enter a text file to build the profile (press ENTER with no text when done)\n");
 		scanf("%s", inputbuffer);
 		if(inputbuffer[0] != '\0'){
-			printf("adding %s\n", inputbuffer);
+			printf("adding %s\n\n", inputbuffer);
 			//open up the file
 			
 			FILE* fp = fopen(inputbuffer, "r");
 
-			// Add error message for fnf
+			if (fp) {
 			
-			map<const string, int> tmpMap = createDict("is");
-
-			char x[1024];
-
-			while(fscanf(fp, "%1023s", x) == 1) {
-				addWord(tmpMap, x);
-			}
-				
-			//add to the profile
-			profile[size] = tmpMap;
+				map<const string, int> tmpMap = createDict("is");
+	
+				char x[1024];
+	
+				while(fscanf(fp, "%1023s", x) == 1) {
+					addWord(tmpMap, x);
+					}
+						
+				//add to the profile
+				profile[size] = tmpMap;
 		
-			size++;
+				size++;
 
-			fclose(fp);
+				profile = (map<const string, int>*)realloc(profile, (size+1)* sizeof(map<const string, int>));
+
+				fclose(fp);
+			
+			}
+
+			else {
+				printf("File not found.\n\n");
+			}
 		}
 		else{
+			printf("gentlemen we did it");
+			done = true;
 			break;
+
 		}
 	}
+
+	printf("Enter text to compare to the profile\n");
+	scanf("%s", inputbuffer);
+
+	FILE* fp2 = fopen(inputbuffer, "r");
+
+	map<const string, int> checkMap = createDict("is");
+	char y[1024];
+
+	while(fscanf(fp2, "%1023s", y) == 1) {
+		addWord(checkMap, y);
+	}
+
+
+
 
 return 0;
 
