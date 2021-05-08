@@ -139,12 +139,12 @@ int main(){
                 }
         }
 
-        double percentageFlagged = (double) plagCount / 277;
+        double percentageFlagged = 100* ((double) plagCount / 277);
         //there are 277 function words so if more than 25% of them are popping flags then we should be suspicous I think, but this is subjective as well
         if(percentageFlagged >= 25)
         {
                 printf("%s\n", "Alright well you might want to pull this person in to office hours, there might be something a little suspicious going on");
-        }else{
+        }else{//if it's less than 25 then hopefully it wasn't plagiarized
                 printf("%s\n", "You can never really be sure, but this looks pretty similar to their other works");
         }
 
