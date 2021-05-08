@@ -72,21 +72,36 @@ int main(){
 		}
 	}
 
-	printf("Enter text to compare to the profile\n");
-	scanf("%s", inputbuffer);
+	done = false;
+	
+	while(!done) {
+	
+		printf("Enter text to compare to the profile\n");
+		scanf("%s", inputbuffer);
 
-	FILE* fp2 = fopen(inputbuffer, "r");
+		FILE* fp2 = fopen(inputbuffer, "r");
 
-	map<const string, int> checkMap = createDict("is");
-	char y[1024];
+		if (fp2) {
 
-	while(fscanf(fp2, "%1023s", y) == 1) {
-		addWord(checkMap, y);
+			map<const string, int> checkMap = createDict("is");
+			char y[1024];
+
+			while(fscanf(fp2, "%1023s", y) == 1) {
+			addWord(checkMap, y);
+			}
+
+			fclose(fp2);
+			done = true;
+		}
+	
+		else {
+			printf("File not found.");
+		}
 	}
 
-	fclose(fp2);
-
-	//compare profiles
+	for (int i = 0; i < size; i++) {
+		//compare profiles
+	}
 
 free(profile);
 return 0;
