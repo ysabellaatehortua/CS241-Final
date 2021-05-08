@@ -133,7 +133,7 @@ int main(){
                         plagCount++;
                 }
 
-                if(checkRatio > 0 && profileRatio == 0)//if this is teh case then a word is not in the profile but is in the checked work
+                if(checkRatio > 0 && profileRatio == 0)//if this is the case then a word is not in the profile but is in the checked work
                 {
                         plagCount++;
                 }
@@ -141,12 +141,27 @@ int main(){
 
         double percentageFlagged = 100* ((double) plagCount / 277);
         //there are 277 function words so if more than 25% of them are popping flags then we should be suspicous I think, but this is subjective as well
-        if(percentageFlagged >= 25)
+	//also added a message for more than 75% of flags
+	
+	int messageprinted = 0;
+	
+	if(precentageFlagged >= 75 && messageprinted == 0)
+	{
+		printf("%s\n", "This is most likely plagiarized. Like it's not looking good");
+		messageprinted = 1;
+	}
+	
+        if(percentageFlagged >= 25 && messageprinted == 0)//if it's in this range it might be plagiarized but we can't be sure
         {
                 printf("%s\n", "Alright well you might want to pull this person in to office hours, there might be something a little suspicious going on");
-        }else{//if it's less than 25 then hopefully it wasn't plagiarized
-                printf("%s\n", "You can never really be sure, but this looks pretty similar to their other works");
+		messageprinted = 1;
         }
+	
+	if(percentageFlagged < 25 && messageprinted == 0)
+	{
+		printf("%s\n", "There aren't a lot of flags so this is probably not plagiarized");
+		messageprinted = 1;
+	}
 
 free(profile);
 return 0;
