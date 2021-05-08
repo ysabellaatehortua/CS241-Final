@@ -98,10 +98,55 @@ int main(){
 			printf("File not found.");
 		}
 	}
+	//compare profiles
 
-	for (int i = 0; i < size; i++) {
-		//compare profiles
-	}
+ //pretty sure that the maps are profile and checkMap...right?
+
+        int plagCount = 0;//this will count up when we find inconsistencies
+        int ps = profile.size();
+        double profTotal = 0;
+        double checkTotal = 0;
+
+        for(int i = 0; i < ps; i++)
+        {
+                profTotal += profile[i];//because some works are going to be longer than others we should make a total number then we can make a ratio
+                                        //for when each word appears
+                checkTotal += checkMap[i];//same thing for the one we are checking
+        }
+
+        for(int i = 0; i < ps; i++)
+        {
+                double profileRatio = ((double) profile[i] / profTotal);//this will average the amount of times a word shows up throughout the profile
+                                                                        //making it easier to check with the one work we are checking
+                double checkRatio = ((double) checkMap[i] / checkTotal);
+                if(checkRatio != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
+                {
+                        if((checkRatio + 0.03) <= profileRatio || (checkRatio - 0.03) >= profileRatio)//this 0.03 is pretty subjective but if this is 
+                                                                //true then it's inconsistent with the works getting read in because a word would show up >3% away from the profile occurences
+                        {
+                                plagCount++;//flagging for one word not matching with the profile we built
+                        }
+                }
+
+                if(checkRatio == 0 && profileRatio > 0)//if this is the case then a word doesn't show up in the checked work but is used in the profile
+                {                                       //pretty fishy right?
+                        plagCount++;
+                }
+
+                if(checkRatio != 0 && profileRatio == 0)//if this is teh case then a word is not in the profile but is in the checked work
+                {
+                        plagCount++;
+                }
+        }
+
+        double percentageFlagged = (double) plagCount / 277;
+        //there are 277 function words so if more than 25% of them are popping flags then we should be suspicous I think, but this is subjective as well
+        if(percentageFlagged >= 25)
+        {
+                printf("%s\n", "Alright well you might want to pull this person in to office hours, there might be something a little suspicious going on");
+        }else{
+                printf("%s\n", "You can never really be sure, but this looks pretty similar to their other works");
+        }
 
 free(profile);
 return 0;
