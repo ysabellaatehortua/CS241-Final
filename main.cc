@@ -14,7 +14,7 @@ int main(){
 	printf("Welcome to the plagiarism detector (press ENTER to continue)");
 	getchar();
 	//buffer size for text files
-	char inputbuffer[100] = {'\0'};
+	char inputbuffer[100];
 
 	map<const string, int>* profile = (map<const string, int>*)malloc(sizeof(map<const string, int>));
 	if (profile == NULL) {
@@ -29,10 +29,13 @@ int main(){
 	done = false;
 	while(!done){
 		printf("Enter a text file to build the profile (press ENTER with no text when done)\n");
-		scanf("%s", inputbuffer);
+		//scanf("%s", inputbuffer);
 
-		if(inputbuffer[0] != '\0'){
-			printf("adding %s\n\n", inputbuffer);
+		fgets(inputbuffer, sizeof inputbuffer, stdin);
+
+		if(inputbuffer[0] != '\n'){
+			inputbuffer[strcspn(inputbuffer, "\n")] = 0;
+			printf("adding %s\n", inputbuffer);
 			//open up the file
 			
 			FILE* fp = fopen(inputbuffer, "r");
@@ -63,7 +66,6 @@ int main(){
 			}
 		}
 		else{
-			printf("gentlemen we did it");
 			done = true;
 			break;
 
