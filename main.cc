@@ -16,7 +16,6 @@ int main(){
 	//buffer size for text files
 	char inputbuffer[100] = {'\0'};
 
-	//map<const string, int> profile[100];
 	map<const string, int>* profile = (map<const string, int>*)malloc(sizeof(map<const string, int>));
 	if (profile == NULL) {
 		printf("Error with memory allocation -  exiting program.");
@@ -31,6 +30,7 @@ int main(){
 	while(!done){
 		printf("Enter a text file to build the profile (press ENTER with no text when done)\n");
 		scanf("%s", inputbuffer);
+
 		if(inputbuffer[0] != '\0'){
 			printf("adding %s\n\n", inputbuffer);
 			//open up the file
@@ -82,9 +82,11 @@ int main(){
 		addWord(checkMap, y);
 	}
 
+	fclose(fp2);
 
+	//compare profiles
 
-
+free(profile);
 return 0;
 
 }
