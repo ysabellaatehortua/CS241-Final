@@ -133,7 +133,7 @@ int main(){
                         plagCount++;
                 }
 
-                if(checkRatio != 0 && profileRatio == 0)//if this is teh case then a word is not in the profile but is in the checked work
+                if(checkRatio > 0 && profileRatio == 0)//if this is teh case then a word is not in the profile but is in the checked work
                 {
                         plagCount++;
                 }
