@@ -73,6 +73,7 @@ int main(){
 	}
 
 	done = false;
+	map<const string, int> checkMap = createDict("is");
 	
 	while(!done) {
 	
@@ -83,7 +84,7 @@ int main(){
 
 		if (fp2) {
 
-			map<const string, int> checkMap = createDict("is");
+
 			char y[1024];
 
 			while(fscanf(fp2, "%1023s", y) == 1) {
@@ -103,22 +104,33 @@ int main(){
  //pretty sure that the maps are profile and checkMap...right?
 
         int plagCount = 0;//this will count up when we find inconsistencies
-        int ps = profile.size();
         double profTotal = 0;
         double checkTotal = 0;
+	map<string, int>::iterator it;
+        map<string, int>::iterator it2;
 
-        for(int i = 0; i < ps; i++)
+
+        for(it = profile->begin(); it != profile->end(); it++)
         {
-                profTotal += profile[i];//because some works are going to be longer than others we should make a total number then we can make a ratio
+                profTotal += (double) it->second;//because some works are going to be longer than others we should make a total number then we can make a ratio
                                         //for when each word appears
-                checkTotal += checkMap[i];//same thing for the one we are checking
+	}
+	
+	for(it = checkMap.begin(); it != checkMap.end(); it++)
+	{
+                checkTotal += (double) it->second;//same thing for the one we are checking
         }
 
-        for(int i = 0; i < ps; i++)
+	it2 = checkMap.begin();//need this to increment through the checkMap in the following for loop
+	
+        for(it = profile->begin(); it != profile->end(); it++)
         {
-                double profileRatio = ((double) profile[i] / profTotal);//this will average the amount of times a word shows up throughout the profile
+                double profileRatio = ((double) it->second / profTotal);//this will average the amount of times a word shows up throughout the profile
                                                                         //making it easier to check with the one work we are checking
-                double checkRatio = ((double) checkMap[i] / checkTotal);
+                double checkRatio = ((double) it2->second / checkTotal);
+		
+		it2++;//because the it2 isn't in the for loop it can increment right here
+		
                 if(checkRatio != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
                 {
                         if((checkRatio + 0.03) <= profileRatio || (checkRatio - 0.03) >= profileRatio)//this 0.03 is pretty subjective but if this is 
@@ -145,7 +157,7 @@ int main(){
 	
 	int messageprinted = 0;
 	
-	if(precentageFlagged >= 75 && messageprinted == 0)
+	if(percentageFlagged >= 75 && messageprinted == 0)
 	{
 		printf("%s\n", "This is most likely plagiarized. Like it's not looking good");
 		messageprinted = 1;
