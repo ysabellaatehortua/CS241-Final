@@ -136,8 +136,8 @@ int main(){
 		
                 if(checkRatio != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
                 {
-                        if((checkRatio + 0.03) <= profileRatio || (checkRatio - 0.03) >= profileRatio)//this 0.03 is pretty subjective but if this is 
-                                                                //true then it's inconsistent with the works getting read in because a word would show up >3% away from the profile occurences
+                        if((checkRatio + 0.1) <= profileRatio || (checkRatio - 0.1) >= profileRatio)//this 0.1 is pretty subjective but if this is 
+                                                                //true then it's inconsistent with the works getting read in because a word would show up >10% away from the profile occurences
                         {
                                 plagCount++;//flagging for one word not matching with the profile we built
                         }
@@ -162,19 +162,24 @@ int main(){
 	
 	if(percentageFlagged >= 75 && messageprinted == 0)
 	{
-		printf("%s\n", "This is most likely plagiarized. Like it's not looking good");
+		printf("%s\n", "There are flags on at least 75% of these function words, meaning that it really doesn't match with the profile you have built.");
 		messageprinted = 1;
+	}
+	
+	if(percentageFlagged >= 50 && messageprinted == 0)
+	{
+		printf("%s\n", "There are flags on 50%-75% of the function words, so it's likely that the checked source is not from the profiled author.");
 	}
 	
         if(percentageFlagged >= 25 && messageprinted == 0)//if it's in this range it might be plagiarized but we can't be sure
         {
-                printf("%s\n", "Alright well you might want to pull this person in to office hours, there might be something a little suspicious going on");
+                printf("%s\n", "There are flags on 25%-50% of the function words, so it doesn't match up very well with the profile but we can't say for sure whether or not it is plagiarized.");
 		messageprinted = 1;
         }
 	
 	if(percentageFlagged < 25 && messageprinted == 0)
 	{
-		printf("%s\n", "There aren't a lot of flags so this is probably not plagiarized");
+		printf("%s\n", "Less than 25% of the function words are being flagged, so the likelyhood of this being plagiarized is low.");
 		messageprinted = 1;
 	}
 
