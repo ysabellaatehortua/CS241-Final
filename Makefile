@@ -9,4 +9,5 @@ dict: dict.cc
 readin: readin.cc
 	g++ -o readin readin.cc
 
-clean: rm -f a.out main dict readin
+clean:
+	rm -f a.out main dict readin
