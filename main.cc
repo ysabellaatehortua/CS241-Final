@@ -131,17 +131,25 @@ int main(){
                 double profilePercent = 100 * ((double) it->second / profTotal);//this will average the amount of times a word shows up throughout the profile
                                                                         //making it easier to check with the one work we are checking
                 double checkPercent = 100 * ((double) it2->second / checkTotal);
+		int flagged = 0;
 		
 		it2++;//because the it2 isn't in the for loop it can increment right here
 		
                 if(checkPercent != 0 && profilePercent != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
                 {
-                        if((checkPercent + 10) <= profilePercent || (checkPercent - 10) >= profilePercent)//this 25 is pretty subjective but if this is 
+                        if(checkPercent + .5 < profilePercent  && flagged == 0)//this 25 is pretty subjective but if this is 
                                                                 //true then it's inconsistent with the works getting read in because a word would show up >25% away from the profile occurences
                         {
+                                flagged = 1;
                                 plagCount++;//flagging for one word not matching with the profile we built
                         }
+                        if(checkPercent - .5 >  profilePercent && flagged == 0)
+                        {
+                                flagged = 1;
+                                plagCount++;
+                        }
                 }
+
 
                 if(checkPercent == 0 && profilePercent > 0)//if this is the case then a word doesn't show up in the checked work but is used in the profile
                 {                                       //pretty fishy right?
@@ -162,26 +170,47 @@ int main(){
 	
 	if(percentageFlagged >= 75 && messageprinted == 0)
 	{
-		printf("%s\n", "There are flags on at least 75% of these function words, meaning that the checked work is unlikely to be written by the profiled author.");
+		printf("%s\n", "There are flags on at least 75% of these function words, meaning that the checked work overwhelmingly unlikely to be written by the profiled author.");
 		messageprinted = 1;
 	}
 	
 	if(percentageFlagged >= 50 && messageprinted == 0)
 	{
-		printf("%s\n", "There are flags on 50%-75% of the function words, so it's likely that the checked work is not from the profiled author.");
+		printf("%s\n", "There are flags on at least 50% of the function words, so it's likely that the checked work is not from the profiled author.");
+		messageprinted = 1;
 	}
 	
         if(percentageFlagged >= 25 && messageprinted == 0)//if it's in this range it might be plagiarized but we can't be sure
         {
-                printf("%s\n", "There are flags on 25%-50% of the function words, so it is hard to determine but more likely that the checked work is written by the profiled author.");
+                printf("%s\n", "There are flags on 25%-50% of the function words, so more likely than not the checked work was not written by the profiled author.");
 		messageprinted = 1;
         }
 	
-	if(percentageFlagged < 25 && messageprinted == 0)
+	if(percentageFlagged >= 20 && messageprinted == 0)
 	{
-		printf("%s\n", "Less than 25% of the function words are being flagged, so it is likely that the checked work is written by the profiled author.");
+		printf("%s\n", "There are flags on 20%-25% of the function words, so plagiarism is possible but not certain.");
 		messageprinted = 1;
 	}
+	
+	if(percentageFlagged >= 15 && messageprinted == 0)
+	{
+		printf("%s\n", "At least 15% but less than 25% of the function words are being flagged, so there are fairly few inconsistencies between the profiled author and the checked work.");
+		messageprinted = 1;
+	}
+	
+	if(percentageFlagged < 5 && messageprinted == 0)
+	{
+		printf("%s\n", "Less than 5% of the function words are getting flagged, so the usage of function words in the checked work is very consistent with the profiled author.");
+		messageprinted = 1;
+	}
+	
+	if(percentageFlagged < 15 && messageprinted == 0)
+	{
+		printf("%s\n", "Less than 15% but more than 5% of the words are getting flagged, meaning there are some inconsistencies but it's not definitely plagiarized.");
+		messageprinted = 1;
+	}
+	
+
 
 //free(profile);
 return 0;
