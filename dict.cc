@@ -592,7 +592,7 @@ void addWord(map<const string, int>& mapInput, string word){
 }
 
 
-int main(){
+int dict(){
 	map<const string, int> thisMap = createDict("is");
 	printf("%i", thisMap["yes"]);
 	addWord(thisMap, "yes");
