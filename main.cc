@@ -128,27 +128,27 @@ int main(){
 	
         for(it = profile.begin(); it != profile.end(); it++)
         {
-                double profileRatio = ((double) it->second / profTotal);//this will average the amount of times a word shows up throughout the profile
+                double profilePercent = 100 * ((double) it->second / profTotal);//this will average the amount of times a word shows up throughout the profile
                                                                         //making it easier to check with the one work we are checking
-                double checkRatio = ((double) it2->second / checkTotal);
+                double checkPercent = 100 * ((double) it2->second / checkTotal);
 		
 		it2++;//because the it2 isn't in the for loop it can increment right here
 		
-                if(checkRatio != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
+                if(checkPercent != 0 && profilePercent != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
                 {
-                        if((checkRatio + 0.1) <= profileRatio || (checkRatio - 0.1) >= profileRatio)//this 0.1 is pretty subjective but if this is 
-                                                                //true then it's inconsistent with the works getting read in because a word would show up >10% away from the profile occurences
+                        if((checkPercent + 25) <= profilePercent || (checkPercent - 25) >= profilePercent)//this 25 is pretty subjective but if this is 
+                                                                //true then it's inconsistent with the works getting read in because a word would show up >25% away from the profile occurences
                         {
                                 plagCount++;//flagging for one word not matching with the profile we built
                         }
                 }
 
-                if(checkRatio == 0 && profileRatio > 0)//if this is the case then a word doesn't show up in the checked work but is used in the profile
+                if(checkPercent == 0 && profilePercent > 0)//if this is the case then a word doesn't show up in the checked work but is used in the profile
                 {                                       //pretty fishy right?
                         plagCount++;
                 }
 
-                if(checkRatio > 0 && profileRatio == 0)//if this is the case then a word is not in the profile but is in the checked work
+                if(checkPercent > 0 && profilePercent == 0)//if this is the case then a word is not in the profile but is in the checked work
                 {
                         plagCount++;
                 }
