@@ -121,12 +121,8 @@ int main(){
         {
                 profTotal += (double) it->second;//because some works are going to be longer than others we should make a total number then we can make a ratio
                                         //for when each word appears
+		checkTotal += (double) it->second;
 	}
-	
-	for(it = checkMap.begin(); it != checkMap.end(); it++)
-	{
-                checkTotal += (double) it->second;//same thing for the one we are checking
-        }
 
 	it2 = checkMap.begin();//need this to increment through the checkMap in the following for loop
 	
