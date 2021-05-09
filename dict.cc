@@ -5,6 +5,7 @@
 #include <map>
 #include <string>
 #include <array>
+#include "header.h"
 
 using namespace std;
 map<const string, int> createDict (std::string text){
@@ -304,7 +305,7 @@ void addWord(map<const string, int>& mapInput, string word){
 }
 
 
-int main(){
+int dict(){
 	map<const string, int> thisMap = createDict("is");
 	printf("%i", thisMap["yes"]);
 	addWord(thisMap, "yes");

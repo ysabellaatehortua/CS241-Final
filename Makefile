@@ -1,7 +1,7 @@
-all: main dict readin
+all: main
 
-main: main.cc
-	g++ -o main main.cc
+main: main.cc dict.cc
+	g++ -o main main.cc dict.cc
 
 dict: dict.cc
 	g++ -o dict dict.cc

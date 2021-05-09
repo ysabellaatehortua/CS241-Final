@@ -16,11 +16,13 @@ int main(){
 	//buffer size for text files
 	char inputbuffer[100];
 
-	map<const string, int>* profile = (map<const string, int>*)malloc(sizeof(map<const string, int>));
-	if (profile == NULL) {
-		printf("Error with memory allocation -  exiting program.");
-		exit(1);
-	}
+	map<const string, int> profile = createDict("is");;
+
+//	map<const string, int>* profile = (map<const string, int>*)malloc(sizeof(map<const string, int>));
+//	if (profile == NULL) {
+//		printf("Error with memory allocation -  exiting program.");
+//		exit(1);
+//	}
 	
 	int size = 0;
 
@@ -42,21 +44,22 @@ int main(){
 
 			if (fp) {
 			
-				map<const string, int> tmpMap = createDict("is");
+//				map<const string, int> tmpMap = createDict("is");
 	
 				char x[1024];
 	
 				while(fscanf(fp, "%1023s", x) == 1) {
-					addWord(tmpMap, x);
+					addWord(profile, x);
 					}
 						
 				//add to the profile
-				profile[size] = tmpMap;
+//				profile[size] = tmpMap;
 		
 				size++;
 
-				profile = (map<const string, int>*)realloc(profile, (size+1)* sizeof(map<const string, int>));
-
+//				profile = (map<const string, int>*)realloc(profile, (size+1)* sizeof(map<const string, int>));
+				
+				
 				fclose(fp);
 			
 			}
@@ -110,7 +113,7 @@ int main(){
         map<string, int>::iterator it2;
 
 
-        for(it = profile->begin(); it != profile->end(); it++)
+        for(it = profile.begin(); it != profile.end(); it++)
         {
                 profTotal += (double) it->second;//because some works are going to be longer than others we should make a total number then we can make a ratio
                                         //for when each word appears
@@ -123,7 +126,7 @@ int main(){
 
 	it2 = checkMap.begin();//need this to increment through the checkMap in the following for loop
 	
-        for(it = profile->begin(); it != profile->end(); it++)
+        for(it = profile.begin(); it != profile.end(); it++)
         {
                 double profileRatio = ((double) it->second / profTotal);//this will average the amount of times a word shows up throughout the profile
                                                                         //making it easier to check with the one work we are checking
@@ -175,7 +178,7 @@ int main(){
 		messageprinted = 1;
 	}
 
-free(profile);
+//free(profile);
 return 0;
 
 }
