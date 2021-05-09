@@ -11,8 +11,12 @@
 
 int main(){
 	//intro
-	printf("Welcome to the plagiarism detector (press ENTER to continue)");
+	printf("Welcome to the plagiarism detector (press ENTER to continue).");
 	getchar();
+
+	printf("This program will compare a piece of writing to an author's larger body of work to determine if it was written by that author. (press ENTER to continute");
+	getchar();
+
 	//buffer size for text files
 	char inputbuffer[100];
 
@@ -30,7 +34,7 @@ int main(){
 	bool done;
 	done = false;
 	while(!done){
-		printf("Enter a text file to build the profile (press ENTER with no text when done)\n");
+		printf("Enter a text file to build the author profile (press ENTER with no text when done):\n");
 		//scanf("%s", inputbuffer);
 
 		fgets(inputbuffer, sizeof inputbuffer, stdin);
@@ -80,7 +84,7 @@ int main(){
 	
 	while(!done) {
 	
-		printf("Enter text to compare to the profile\n");
+		printf("Enter text to compare to the profile:\n");
 		scanf("%s", inputbuffer);
 
 		FILE* fp2 = fopen(inputbuffer, "r");
@@ -162,24 +166,24 @@ int main(){
 	
 	if(percentageFlagged >= 75 && messageprinted == 0)
 	{
-		printf("%s\n", "There are flags on at least 75% of these function words, meaning that it really doesn't match with the profile you have built.");
+		printf("%s\n", "There are flags on at least 75% of these function words, meaning that the checked work is unlikely to be written by the profiled author.");
 		messageprinted = 1;
 	}
 	
 	if(percentageFlagged >= 50 && messageprinted == 0)
 	{
-		printf("%s\n", "There are flags on 50%-75% of the function words, so it's likely that the checked source is not from the profiled author.");
+		printf("%s\n", "There are flags on 50%-75% of the function words, so it's likely that the checked work is not from the profiled author.");
 	}
 	
         if(percentageFlagged >= 25 && messageprinted == 0)//if it's in this range it might be plagiarized but we can't be sure
         {
-                printf("%s\n", "There are flags on 25%-50% of the function words, so it doesn't match up very well with the profile but we can't say for sure whether or not it is plagiarized.");
+                printf("%s\n", "There are flags on 25%-50% of the function words, so it is hard to determine but more likely that the checked work is written by the profiled author.");
 		messageprinted = 1;
         }
 	
 	if(percentageFlagged < 25 && messageprinted == 0)
 	{
-		printf("%s\n", "Less than 25% of the function words are being flagged, so the likelyhood of this being plagiarized is low.");
+		printf("%s\n", "Less than 25% of the function words are being flagged, so it is likely that the checked work is written by the profiled author.");
 		messageprinted = 1;
 	}
 
