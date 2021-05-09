@@ -14,7 +14,7 @@ int main(){
 	printf("Welcome to the plagiarism detector (press ENTER to continue).");
 	getchar();
 
-	printf("This program will compare a piece of writing to an author's larger body of work to determine if it was written by that author. (press ENTER to continute");
+	printf("This program will compare a piece of writing to an author's larger body of work to determine if it was written by that author (press ENTER to continue).");
 	getchar();
 
 	//buffer size for text files
