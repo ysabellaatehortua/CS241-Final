@@ -140,7 +140,7 @@ int main(){
 		
                 if(checkPercent != 0 && profilePercent != 0)//if it is 0 then I don't really think we can say something is inconsistent (unless the corresponding word in the profile is really high?)
                 {
-                        if((checkPercent + 25) <= profilePercent || (checkPercent - 25) >= profilePercent)//this 25 is pretty subjective but if this is 
+                        if((checkPercent + 10) <= profilePercent || (checkPercent - 10) >= profilePercent)//this 25 is pretty subjective but if this is 
                                                                 //true then it's inconsistent with the works getting read in because a word would show up >25% away from the profile occurences
                         {
                                 plagCount++;//flagging for one word not matching with the profile we built
